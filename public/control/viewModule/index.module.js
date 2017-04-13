@@ -33,10 +33,10 @@ define(["avalon", "jquery","../data/index.data","./common.module",'boot'], funct
 						blogid:blodid,
 						userid:userid,
 						content:content
-					}
+					};
 					$data.comment_insert(data,function (result) {
-						if(result.message == 'success'){
-							console.log(result);
+						if('success' === result.message){
+							updateCR({blogid:vm_cr.blog._id});
 						}
                     });
 
@@ -67,7 +67,7 @@ define(["avalon", "jquery","../data/index.data","./common.module",'boot'], funct
 					var buid = $textArea.attr('uid');
 
 					var uid = vm_cr.user._id;
-					if(buid == uid){
+					if(buid === uid){
 						alert('不可以回复自己');
 						return;
 					}
@@ -76,10 +76,12 @@ define(["avalon", "jquery","../data/index.data","./common.module",'boot'], funct
 						userid:uid,
 						beuserid:buid,
 						content:content
-					}
+					};
 
 					$data.reply_insert(data,function (result) {
 						console.log(result);
+                        $textArea.hide();
+						updateCR({blogid:vm_cr.blog._id});
                     });
 
 				}
@@ -98,7 +100,7 @@ define(["avalon", "jquery","../data/index.data","./common.module",'boot'], funct
 		 * 查询博客信息
          */
 		$data.blog_findById({id:'58ef15b8e9d72e1e00f05566'},function (result) {
-			if(result.message == 'success'){
+			if(result.message === 'success'){
                 vm_cr.blog = result.result;
                 updateCR({blogid:result.result._id});
 			}
@@ -115,7 +117,7 @@ define(["avalon", "jquery","../data/index.data","./common.module",'boot'], funct
 
 				if(email && pwd){
 					$data.user_login({email:email,password:pwd},function (result) {
-						if(result.message == 'success' && result.result){
+						if(result.message === 'success' && result.result){
                             vm_header.user = vm_cr.user = result.result;
                             $("#loginModal").modal('hide');
                         }
@@ -138,14 +140,15 @@ define(["avalon", "jquery","../data/index.data","./common.module",'boot'], funct
                         email:email,
                         nickname : nickname,
                         password:pwd
-                    }
+                    };
 					$data.user_regist(data,function (result) {
-						if(result.message == 'success'){
+						if(result.message === 'success'){
 							console.log(result);
+                            $("#registModal").modal('hide');
 						}
                     });
 				}else{
-					alert('tianwan')
+					alert('tianwan');
 				}
             }
 		});
@@ -155,15 +158,15 @@ define(["avalon", "jquery","../data/index.data","./common.module",'boot'], funct
 
         /**
          * 更新评论回复列表
-         * @param data
+         * @param data{ blogid : 博客id }
          */
         function updateCR(data) {
             $data.blog_findCommentsOfBlog(data,function (result) {
-                if(result.message == 'success'){
+                if(result.message === 'success'){
                     $.each(result.result,function (index,item) {
                         item.createtime = $com.Format(item.createtime);
-                        if(item.replys){
-                            $.each(item.replys,function (index,item) {
+                        if(item.replies){
+                            $.each(item.replies,function (index,item) {
                                 item.createtime = $com.Format(item.createtime);
                             });
 						}

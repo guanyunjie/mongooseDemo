@@ -48,7 +48,9 @@ function _findCommentsOfBlog(data,callback) {
      */
     var promise = Comment.find({blogid:data.blogid})
         .populate('userid','nickname')
-        .populate('replies')
+        .populate({
+            path:'replies'
+        })
         .exec();
     promise.then(
         function (data) {
