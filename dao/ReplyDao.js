@@ -1,7 +1,7 @@
 /**
  * Created by Guanyunjie on 2017/4/11.
  */
-var ru = require('../models/resultUtil');
+var ru = require('../models/pack');
 var Reply = require('../models/Reply');
 var Comment = require('../models/Comment');
 /**

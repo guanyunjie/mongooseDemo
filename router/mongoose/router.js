@@ -5,6 +5,7 @@ var BlogDao = require('../../dao/BlogDao');
 var UserDao = require('../../dao/UserDao');
 var CommentDao = require('../../dao/CommentDao');
 var ReplyDao = require('../../dao/ReplyDao');
+var pack = require('../../models/pack');
 
 function proxy(service,data,callback) {
     var str = service.split('_');
@@ -15,21 +16,25 @@ function proxy(service,data,callback) {
         switch (modelName){
             case 'blog' :
                 BlogDao[serviceName](data,function (result) {
+                    result = pack.package(result,service);
                     callback(result);
                 });
                 break;
             case 'user':
                 UserDao[serviceName](data,function (result) {
+                    result = pack.package(result,service);
                     callback(result);
                 });
                 break;
             case 'comment':
                 CommentDao[serviceName](data,function (result) {
+                    result = pack.package(result,service);
                     callback(result);
                 });
                 break;
             case 'reply':
                 ReplyDao[serviceName](data,function (result) {
+                    result = pack.package(result,service);
                     callback(result);
                 });
                 break;

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>发表博客</title>
+    <link rel="stylesheet" href="../style/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../style/css/main.css" />
+</head>
+<body>
+<nav id="navigation" class="navbar navbar-fixed-top navbar-inverse">
+    <div class="container">
+        <div class="collapse navbar-collapse navbar-left">
+            <ul class="nav navbar-nav _user">
+                <li>
+                    <a href="edit.html" href="javascript:;"><span>博客</span></a>
+                </li>
+                <li><a href="javascript:;"><span>xxxx</span></a></li>
+            </ul>
+        </div>
+        <button style="position: relative;top: 10px;" type="button" class="btn btn-success pull-left">发表博客</button>
+        <div class="collapse navbar-collapse navbar-right">
+            <ul class="nav navbar-nav">
+                <li><a onclick="$fn.alert_login();" href="javascript:;">登录/注册</a></li>
+                <li id="user_li" style="display: none;"><a onclick="$fn.show_board();" href="javascript:;"><span></span></a></li>
+            </ul>
+            <div id="person_board" class="person-board">
+                <ul class="nav list-inline">
+                    <li><a onclick="$fn.user_homepage();" href="javascript:;">个人主页</a></li>
+                    <li><a onclick="$fn.setting();" href="javascript:;">账号设置</a></li>
+                    <li><a onclick="$fn.logout();" href="javascript:;">退出登录</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+
+
+</body>
+</html>

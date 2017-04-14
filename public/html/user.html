@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>xxxx的个人主页</title>
+    <link rel="stylesheet" href="../style/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../style/css/main.css" />
+    <style>
+        body{background-color: #f2f2f2;}
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-fixed-top navbar-inverse">
+        <div class="container-fluid">
+            <div class="collapse navbar-collapse navbar-left">
+                <ul class="nav navbar-nav _user">
+                    <li>
+                        <span class="glyphicon glyphicon-user"></span>
+                        <span>当前用户：</span><span :visible="@user.nickname" :html="@user.nickname"></span>
+                    </li>
+                </ul>
+                <div style="display: none;position: absolute;color: #4c4c4c;top: 53px;left: 100px;background-color: #fff">
+                    <ul class="nav navbar list-inline">
+                        <li><a href="user.html">个人主页</a></li>
+                        <li><a href="setting.html">账号设置</a></li>
+                        <li><a href="javascript:;">退出登录</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="collapse navbar-collapse navbar-right">
+                <ul class="nav navbar-nav">
+                    <li><a :on-click="@alert_login" href="javascript:;">登录</a></li>
+                    <li><a :on-click="@alert_regist" href="javascript:;">注册</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid user-main">
+        <div class="container info">
+            <div class="col-sm-4 photo">
+                <a href="user.html"><img src="../style/img/001.jpg" alt=""></a>
+                <div style="display: inline-block;">
+                    <a style="display: block;font-size: 16px;padding-left: 15px;" href="user.html">youxiang:</a>
+                    <h5 style="font-size: 18px;padding-left: 15px;text-align: center;">
+                        <span>被赞</span>
+                        <strong style="">4</strong>
+                    </h5>
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <p>简介：<span>该用户很懒，没有留下任何简介~</span><a href="#"><span style="margin-left: 10px;" class="glyphicon glyphicon-pencil"></span></a></p>
+            </div>
+        </div>
+        <div class="container active" style="padding: 20px;background-color: #fff;margin-top: 30px;">
+            <div class="col-sm-3" style="border-right: 1px solid #ccc;">
+                <ul class="nav navbar list-inline">
+                    <li><a href="javascript:;">博客</a></li>
+                    <li><a href="javascript:;">评论</a></li>
+                </ul>
+            </div>
+            <div class="col-sm-9"></div>
+        </div>
+    </div>
+</body>
+</html>

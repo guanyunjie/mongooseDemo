@@ -7,82 +7,48 @@
     <link rel="stylesheet" href="../style/css/main.css" />
 </head>
 <body>
-<nav id="blog_header" :controller="blog_header" class="navbar navbar-fixed-top navbar-inverse">
-    <div class="container-fluid">
+<nav id="navigation" class="navbar navbar-fixed-top navbar-inverse">
+    <div class="container">
         <div class="collapse navbar-collapse navbar-left">
             <ul class="nav navbar-nav _user">
                 <li>
-                    <span class="glyphicon glyphicon-user"></span>
-                    <span>当前用户：</span><span :visible="@user.nickname" :html="@user.nickname"></span>
+                    <a href="javascript:;"><span>博客</span></a>
                 </li>
+                <li><a href="javascript:;"><span>xxxx</span></a></li>
             </ul>
         </div>
+        <button onclick="$fn.publish_blog();" style="position: relative;top: 10px;" type="button" class="btn btn-success pull-left">发表博客</button>
         <div class="collapse navbar-collapse navbar-right">
             <ul class="nav navbar-nav">
-                <li><a :on-click="@alert_login" href="javascript:;">登录</a></li>
-                <li><a :on-click="@alert_regist" href="javascript:;">注册</a></li>
+                <li><a onclick="$fn.alert_login();" href="javascript:;">登录/注册</a></li>
+                <li id="user_li" style="display: none;"><a onclick="$fn.show_board();" href="javascript:;"><span></span></a></li>
             </ul>
+            <div id="person_board" class="person-board">
+                <ul class="nav list-inline">
+                    <li><a onclick="$fn.user_homepage();" href="javascript:;">个人主页</a></li>
+                    <li><a onclick="$fn.setting();" href="javascript:;">账号设置</a></li>
+                    <li><a onclick="$fn.logout();" href="javascript:;">退出登录</a></li>
+                </ul>
+            </div>
         </div>
     </div>
 </nav>
-<div id="blog_cr" :controller="blog_cr" style="margin-top: 60px;" class="container">
-    <div class="media">
-        <div class="media-body">
-            <h4 class="media-heading">{{@blog.title}}</h4>
-            <div class="media-object">{{@blog.content}}</div>
-        </div>
-    </div>
-    <textarea :visible="@user._id" id="comment_content" class="form-control" rows="3"></textarea>
-    <div :visible="@user._id">
-        <button :on-click="@submitComment" class="btn btn-default pull-right" type="button">提交</button>
-    </div>
-    <ul class="comment_list">
-        <li class="comment_wrap" :for="comment in @comments">
-            <div class="th"><a href="javascript:;"><img src="../style/img/001.jpg"></a></div>
-            <div class="title"><a href="javascript:;">{{comment.userid.nickname}}</a></div>
-            <div class="content">{{comment.content}}</div>
-            <div class="action">
-                <span>{{comment.createtime}}</span>
-                <a href="javascript:;"><span class="glyphicon glyphicon-thumbs-up"></span>(<em>0</em>)</a>
-                <a :on-click="@showTextArea($event)" href="javascript:;"><span class="glyphicon glyphicon-comment"></span><em>&nbsp;回复</em></a>
-            </div>
-            <div class="text-area">
-                <textarea :attr="{cid:comment._id,uid:comment.userid._id}" class="form-control"></textarea>
-                <div class="text-area-btn">
-                    <button :on-click="@submitReply($event)" class="btn btn-success" type="button">确定</button>
-                    <button style="margin-left: 20px;" class="btn btn-warning" type="button">取消</button>
-                </div>
-            </div>
 
-            <div :for="reply in comment.replies" class="reply">
-                <div class="th"><a href="javascript:;"><img src="../style/img/001.jpg"></a></div>
-                <div class="title">
-                    <a href="javascript:;">{{reply.userid.nickname}}</a>&nbsp;&nbsp;回复&nbsp;&nbsp;
-                    <a href="javascript:;">{{reply.beuserid.nickname}}</a>
-                </div>
-                <div class="content">{{reply.content}}
-                </div>
-                <div class="action">
-                    <span>{{reply.createtime}}</span>
-                    <a href="javascript:;"><span class="glyphicon glyphicon-thumbs-up"></span>
-                    (<em>0</em>)</a>
-                    <a href="javascript:;"><span class="glyphicon glyphicon-comment"></span><em>回复</em></a>
-                </div>
-            </div>
-        </li>
-    </ul>
-</div>
-<div id="blog_modal" :controller="blog_modal">
+<div id="modal">
     <!-- 登录模态框 -->
     <div id="loginModal" class="modal fade">
         <div class="modal-dialog" style="margin: 100px auto;" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">登录面板</h4>
+                    <h4 class="modal-title">
+                        <button name="login" onclick="$fn.login_btn();" class="btn btn-default active" type="button">登录</button>
+                        <button name="regist" onclick="$fn.regist_btn();" class="btn btn-default" type="button">注册</button>
+                        <span class="tips" id="err_info"></span>
+                    </h4>
                 </div>
                 <div class="modal-body">
-                    <form class="form-horizontal">
+                    <form id="form_login" class="form-horizontal">
                         <div class="form-group">
                             <label class="col-sm-2 control-label">邮箱</label>
                             <div class="col-sm-10">
@@ -96,24 +62,7 @@
                             </div>
                         </div>
                     </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                    <button :on-click="@login" type="button" class="btn btn-primary">登录</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- 注册模态框 -->
-    <div id="registModal" class="modal fade">
-        <div class="modal-dialog" style="margin: 100px auto;" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">注册面板</h4>
-                </div>
-                <div class="modal-body">
-                    <form class="form-horizontal">
+                    <form id="form_regist" style="display: none;" class="form-horizontal">
                         <div class="form-group">
                             <label class="col-sm-2 control-label">邮箱</label>
                             <div class="col-sm-10">
@@ -127,21 +76,23 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">昵称</label>
+                            <label class="col-sm-2 control-label">重复密码</label>
                             <div class="col-sm-10">
-                                <input id="regist_nickname" type="text" class="form-control" placeholder="enter your nickname">
+                                <input id="regist_repwd" type="password" class="form-control" placeholder="enter your password">
                             </div>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                    <button :on-click="@regist" type="button" class="btn btn-primary">注册</button>
+                    <button id="to_login" onclick="$fn.to_login();" type="button" class="btn btn-primary">登录</button>
+                    <button id="to_regist" style="display: none;" onclick="$fn.to_regist();" type="button" class="btn btn-info">注册</button>
                 </div>
             </div>
         </div>
     </div>
+
 </div>
 </body>
 </html>
-<script src="../lib/require.js" data-main="../control/init/index.init.js" ></script>
+<script src="../lib/require.js" data-main="../control/init/index.init" ></script>

@@ -30,6 +30,28 @@ define(['avalon','jquery','../data/common.data'],function (avalon,$,$data) {
         return new Date().Format("yyyy-MM-dd hh:mm:ss");
     }
 
+    var $time = null;
+    /**
+     *
+     * @param message  {提示信息}
+     * @param state {1:'勾',2:'叉叉',3:'问号',4:'感叹号'}
+     */
+    function msg(message,state){
+        if($time) return;
+        var icon = ' glyphicon-ok-sign';
+        icon = state ? state == '1' ? ' glyphicon-ok-sign' : state == '2' ? ' glyphicon-remove-sign' : state == '3' ? ' glyphicon-question-sign' : state == '4' ? ' glyphicon-info-sign' : 'error' : ' glyphicon-ok-sign';
+        var html = '<div class="msg" style="z-index: 99999">'+
+            '<span class="glyphicon '+icon+' "></span>'+
+            '<p>'+message+'</p>'+
+            '</div>';
+        $('body').append(html);
+        $time = setTimeout(function(){
+            $('.msg').remove();
+            clearTimeout($time);
+            $time = null;
+        },2000);
+    }
+
     /**
      * 添加原型方法
      * @private
@@ -70,6 +92,7 @@ define(['avalon','jquery','../data/common.data'],function (avalon,$,$data) {
     return {
         getCurrentTime:getCurrentTime,
         uuid:uuid,
-        Format:Format
+        Format:Format,
+        msg:msg
     }
 });

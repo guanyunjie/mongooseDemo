@@ -1,7 +1,7 @@
 /**
  * Created by Guanyunjie on 2017/4/11.
  */
-var ru = require('../models/resultUtil');
+var ru = require('../models/pack');
 var Comment = require('../models/Comment');
 /**
  * 给博客添加评论
