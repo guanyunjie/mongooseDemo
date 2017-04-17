@@ -16,7 +16,7 @@ app.use(bodyParser.json());
  * 从mongodb拉取数据。
  */
 app.post('/mongoose/:service',function (req,res) {
-    var service = req.param('service');
+    var service = req.params.service;
     var data = req.body;
     mongooseRouter.proxy(service,data,function (result) {
         if(result.message == 'success'){

@@ -1,5 +1,5 @@
 a{text-decoration: none;color: #999;}
-a:hover{text-decoration: none;}
+a:hover,a:active,a:focus{text-decoration: none;}
 ul{list-style: none;}
 em,i{font-style: normal;}
 *{font-family: '微软雅黑'}
@@ -20,7 +20,8 @@ em,i{font-style: normal;}
 
 .text-area{margin-left: 75px;margin-bottom: 10px;display: none;}
 .text-area textarea{width: 100%;height: 100%;margin-bottom: 10px;}
-
+.main{margin-top: 50px;background-color: rgba(177,177,177,0.36);}
+.main-body{background-color: #fff;margin: 20px auto;padding: 30px;}
 /* 个人主页 */
 .user-main{position: relative;top: 50px;padding: 30px 0;}
 .user-main .info{background-color: #fff;padding: 20px;}
@@ -29,3 +30,25 @@ em,i{font-style: normal;}
 .tips{color: #e04545;font-size: 14px;margin-left: 15px;position: relative;top: 7px;display: none;}
 
 .person-board{position: absolute;top: 52px;background-color: #fff;border: 1px solid #ccc;display: none;min-width: 100px;}
+
+/** 发表博客页面 */
+.blog{}
+.blog .blog-body{border-top: 1px dashed #ccc;padding: 15px;}
+.blog>.blog-body>.blog-user p{font-size: 12px;}
+.blog>.blog-body>.blog-user>p:first-child{font-size: 16px;}
+.blog .blog-photo a{display: inline-block;border-radius: 50%;overflow: hidden;}
+.blog .blog-photo img{width: 48px;height: 48px;}
+.blog-title a{color: #403a3a;}
+.blog-title a:hover{color: #ec914f;}
+.blog-hot span{margin-right: 35px;color: #9e9d9d;font-size: 12px;}
+.length-span{position: absolute;right: 40px;bottom: 3px;color: #f12c0b;}
+.color-ok{color: #1b98d6}
+
+/* 博客列表页面 */
+.page{display: block;text-align: right;}
+.page a{display: inline-block;height: 25px;vertical-align: top}
+.page .page-prev,.page .page-next{width: 25px;border-radius: 50%;background-color: #edeef2;background-position: left bottom;}
+.page .page-prev{background-image: url(../img/pre.png);}
+.page .page-next{background-image: url(../img/next.png);}
+.page .page-on{color: #3765c2;background: #ced2de;}
+.page .page-num,.page .dot-prev,.page .dot-next{color: #333;line-height: 25px;width: 25px;border-radius: 50%;text-align: center;}

@@ -31,26 +31,27 @@ define(['jquery','./common.module','../data/modal.data'],function ($,$com,$data)
     /**
      * 登录
      */
-    var $time = null;
     function to_login() {
         var email = $("#login_email").val().trim();
         var pwd = $("#login_pwd").val().trim();
         if(email && pwd){
             $data.user_login({email:email,password:pwd},function (result) {
-                console.log(result);
-                // 注册即登录
-                sessionStorage.setItem('user',result.result._id);
-                $("#loginModal").modal('hide');
-                location.href = location.href;
+                if(result.message === 'success'){
+                    if(result.result){
+                        console.log(result);
+                        // 注册即登录
+                        sessionStorage.setItem('user',result.result._id);
+                        $("#loginModal").modal('hide');
+                        location.href = location.href;
+                    }
+                    else{
+                        _time('邮箱或者密码错误，请重新输入~');
+                    }
+                }
             });
         }
         else{
-            if($time) clearTimeout($time);
-            $("#err_info").html('请填写完整的邮箱和密码~').show();
-            $time = setTimeout(function () {
-                clearTimeout($time);
-                $("#err_info").html('').hide();
-            },2000);
+            _time('请填写完整的邮箱和密码~');
         }
     }
 
@@ -90,7 +91,21 @@ define(['jquery','./common.module','../data/modal.data'],function ($,$com,$data)
             },2000);
         }
     }
+    var $time = null;
 
+    /**
+     * 提示登录/注册错误信息
+     * @param msg
+     * @private
+     */
+    function _time(msg) {
+        if($time) clearTimeout($time);
+        $("#err_info").html(msg).show();
+        $time = setTimeout(function () {
+            clearTimeout($time);
+            $("#err_info").html('').hide();
+        },2000);
+    }
     return{
         login_btn:login_btn,
         regist_btn:regist_btn,

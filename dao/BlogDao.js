@@ -5,7 +5,7 @@ var resultUtil = require('../models/pack');
 var Comment = require('../models/Comment');
 var Reply = require('../models/Reply');
 var Blog = require('../models/Blog');
-var mpromise = require('mpromise');
+var User = require('../models/User');
 
 /**
  * 新增blog
@@ -13,9 +13,22 @@ var mpromise = require('mpromise');
  * @param callback
  * @private
  */
-function _insertBlog(data,callback) {
+function _publish(data,callback) {
     Blog.create(data,function (err,data) {
-        callback(resultUtil.returnResult(err,data));
+        var _blogid = data._id;
+        var _data = data;
+        if(err) console.error(err);
+        else{
+            User.findById(data.user,function (err,data) {
+                data.blog.push(_blogid);
+                data.save(function (err,data) {
+                    if(err) console.error(err);
+                    else{
+                        callback(_data);
+                    }
+                });
+            });
+        }
     });
 }
 
@@ -27,7 +40,7 @@ function _insertBlog(data,callback) {
  */
 function _findById(data,callback) {
     Blog.findById(data.id,function (err,data) {
-        callback(resultUtil.returnResult(err,data));
+        callback(data);
     });
 }
 
@@ -63,7 +76,23 @@ function _findCommentsOfBlog(data,callback) {
     );
 
 }
+/**
+ * 分页查询
+ * @param data
+ * @param callback
+ * @private
+ */
+function _listBlog(data,callback) {
+    var size = data.size || 8;
+    var num = size * (data.num - 1);
+    Blog.find({})
+        .populate('user','nickname photo')
+        .skip(num).limit(size).exec(function (err,data) {
+        err ? console.error(err) : callback(data);
+    });
+}
 
-exports.insertBlog = _insertBlog;
+exports.publish = _publish;
 exports.findById = _findById;
 exports.findCommentsOfBlog = _findCommentsOfBlog;
+exports.listBlog = _listBlog;

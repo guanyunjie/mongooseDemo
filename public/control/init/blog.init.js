@@ -15,6 +15,84 @@ require.config({
 require.config({
 });
 //	调用module.js
-require(['../control/viewModule/blog.module','../control/viewModule/navigation.module'], function(blog,navigation) {
+require(['../control/viewModule/blog.module','../control/viewModule/navigation.module'], function(edit,navigation) {
     navigation.loginregister();
 });
+/**
+ * 点击事件
+ */
+function fn() {}
+var _path = '../control/viewModule/';
+fn.prototype = {
+    /**************  通用（导航栏和模态框）  ***************/
+    alert_login : function () {
+        require([_path + 'navigation.module'],function (proxy) {
+            proxy.alert_login();
+        });
+    },
+    login_btn : function () {
+        require([_path + 'modal.module'],function (proxy) {
+            proxy.login_btn();
+        });
+    },
+    regist_btn : function () {
+        require([_path + 'modal.module'],function (proxy) {
+            proxy.regist_btn();
+        });
+    },
+    to_login : function () {
+        require([_path + 'modal.module'],function (proxy) {
+            proxy.to_login();
+        });
+    },
+    to_regist : function () {
+        require([_path + 'modal.module'],function (proxy) {
+            proxy.to_regist();
+        });
+    },
+    show_board : function () {
+        require([_path + 'navigation.module'],function (proxy) {
+            proxy.show_board();
+        });
+    },
+    user_homepage : function () {
+        require([_path + 'navigation.module'],function (proxy) {
+            proxy.user_homepage();
+        });
+    },
+    setting : function () {
+        require([_path + 'navigation.module'],function (proxy) {
+            proxy.setting();
+        });
+    },
+    logout : function () {
+        require([_path + 'navigation.module'],function (proxy) {
+            proxy.logout();
+        });
+    },
+    publish_blog : function () {
+        require([_path + 'navigation.module'],function (proxy) {
+            proxy.publish_blog();
+        });
+    },
+    /********************  分页点击事件   **********************/
+    page_prev : function () {
+        require([_path + 'pager.module'],function (proxy) {
+            proxy.page_prev();
+        });
+    },
+    page_next : function () {
+        require([_path + 'pager.module'],function (proxy) {
+            proxy.page_next();
+        });
+    },
+    page_num : function (that) {
+        require([_path + 'pager.module'],function (proxy) {
+            proxy.page_num(that);
+        });
+    }
+
+    /*******************  此页面中的事件  **********************/
+
+};
+var $fn = new fn();

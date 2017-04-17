@@ -12,12 +12,12 @@
         <div class="collapse navbar-collapse navbar-left">
             <ul class="nav navbar-nav _user">
                 <li>
-                    <a href="edit.html" href="javascript:;"><span>博客</span></a>
+                    <a href="blog.html"><span>博客</span></a>
                 </li>
                 <li><a href="javascript:;"><span>xxxx</span></a></li>
             </ul>
         </div>
-        <button style="position: relative;top: 10px;" type="button" class="btn btn-success pull-left">发表博客</button>
+        <button onclick="$fn.publish_blog();" style="position: relative;top: 10px;" type="button" class="btn btn-success pull-left">发表博客</button>
         <div class="collapse navbar-collapse navbar-right">
             <ul class="nav navbar-nav">
                 <li><a onclick="$fn.alert_login();" href="javascript:;">登录/注册</a></li>
@@ -34,6 +34,33 @@
     </div>
 </nav>
 
+<div id="main" :controller="editControl" class="container-fluid main">
+    <div class="container" style="background-color: #fff;margin: 20px auto;padding: 20px;">
+        <form class="form-horizontal">
+            <div class="form-group">
+                <label for="labelForTitle" class="col-sm-2 control-label">标题</label>
+                <div class="col-sm-10">
+                    <input :duplex="@title" id="labelForTitle" type="text" class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="labelForContent" class="col-sm-2 control-label">内容</label>
+                <div class="col-sm-10">
+                    <textarea maxlength="200" style="position: relative;" :duplex="@content" id="labelForContent" class="form-control" rows="5"></textarea>
+                    <span class="length-span" id="length_span">(<span :html="@length"></span>/200)</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="labelForContent" class="col-sm-2 control-label sr-only"></label>
+                <div class="col-sm-10">
+                    <button :on-click="@submit_blog" class="btn btn-default" type="button">确&nbsp;&nbsp;定</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
 
 </body>
 </html>
+<script src="../lib/require.js" data-main="../control/init/edit.init" ></script>

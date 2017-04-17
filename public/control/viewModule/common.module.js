@@ -89,10 +89,24 @@ define(['avalon','jquery','../data/common.data'],function (avalon,$,$data) {
         return new Date(date).Format(_fmt);
     }
 
+    /**
+     * 反转数组。
+     * @param arr
+     * @returns {Array}
+     */
+    function reverse(arr) {
+        var reverseArr = [];
+        for(var i = 0;i < arr.length;i++){
+            reverseArr.push(arr[arr.length - (i + 1)]);
+        }
+        return reverseArr;
+    }
+
     return {
         getCurrentTime:getCurrentTime,
         uuid:uuid,
         Format:Format,
-        msg:msg
+        msg:msg,
+        reverse:reverse
     }
 });
