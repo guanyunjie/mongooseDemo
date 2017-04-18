@@ -40,7 +40,7 @@ define(['jquery','./common.module','../data/modal.data'],function ($,$com,$data)
                     if(result.result){
                         console.log(result);
                         // 注册即登录
-                        sessionStorage.setItem('user',result.result._id);
+                        sessionStorage.setItem('user',JSON.stringify(result.result));
                         $("#loginModal").modal('hide');
                         location.href = location.href;
                     }
@@ -68,7 +68,7 @@ define(['jquery','./common.module','../data/modal.data'],function ($,$com,$data)
                 $data.user_regist({email:email,password:pwd},function (result) {
                     console.log(result);
                     // 注册即登录
-                    sessionStorage.setItem('user',result.result._id);
+                    sessionStorage.setItem('user',JSON.stringify(result.result));
                     $("#loginModal").modal('hide');
                     location.href = location.href;
                 });

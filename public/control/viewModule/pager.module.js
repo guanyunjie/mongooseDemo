@@ -3,18 +3,14 @@
  */
 define(['jquery','../data/pager.data'],function ($,$data) {
     var c,t;
-    var r;
     /**
      * 分页样式控制函数
      * @param c {当前页}
      * @param t {总页数}
      */
-    function _pagation(currentNum,totalNum,request) {
+    function pagation(currentNum,totalNum) {
         c = parseInt(currentNum);
         t = parseInt(totalNum);
-        if(request){
-            r = request;
-        }
         var $num = $(".page-num"),
             $dot_prev = $(".dot-prev"),
             $dot_next = $(".dot-next");
@@ -143,48 +139,7 @@ define(['jquery','../data/pager.data'],function ($,$data) {
             }
         }
     }
-    /**
-     * 上一页事件
-     */
-    function page_prev() {
-        if(c === 1){
-            alert("已经是第一页了~")
-        }
-        else{
-            _pagation(--c,t);
-        }
-    }
-    /**
-     * 下一页事件
-     */
-    function page_next() {
-        if(c === t){
-            alert("已经是第一页了~")
-        }
-        else{
-            _pagation(++c,t);
-        }
-    }
-
-    /**
-     * 页码点击事件
-     * @param num
-     */
-    function page_num(num) {
-        num = parseInt($(num).text());
-        if(num !== c){
-            _pagation(num,t);
-        }
-    }
     return {
-        pagation:_pagation,
-        page_prev:page_prev,
-        page_next:page_next,
-        page_num:page_num
+        pagation:pagation,
     }
 });
-
-
-
-
-

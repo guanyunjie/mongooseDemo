@@ -15,16 +15,12 @@ define(['jquery','../data/navigation.data'],function ($,$data) {
     function loginregister() {
         var href = location.href;
         console.log(href);
-        var user_id = sessionStorage.getItem('user');
-        if(user_id){
-            $data.user_findUserById({id:user_id},function (result) {
-                if(result.message === 'success'){
-                    console.log(result);
-                    $("#user_li").prev().hide();
-                    $("#user_li").show();
-                    $("#user_li").find('span').html(result.result.nickname);
-                }
-            });
+        var user = JSON.parse(sessionStorage.getItem('user'));
+        if(user){
+            console.log(user);
+            $("#user_li").prev().hide();
+            $("#user_li").show();
+            $("#user_li").find('span').html(user.nickname);
         }
         else{
             if(href !== 'http://127.0.0.1:3000/html/index.html'){
@@ -50,16 +46,16 @@ define(['jquery','../data/navigation.data'],function ($,$data) {
      * 前往个人主页
      */
     function user_homepage() {
-        var user_id = sessionStorage.getItem('user');
-        location.href = 'user.html?userid='+user_id;
+        var user = JSON.parse(sessionStorage.getItem('user'));
+        location.href = 'user.html?userid='+user._id;
     }
 
     /**
      * 前往账号设置页面
      */
     function setting() {
-        var user_id = sessionStorage.getItem('user');
-        location.href = 'setting.html?userid='+user_id;
+        var user = JSON.parse(sessionStorage.getItem('user'));
+        location.href = 'setting.html?userid='+user._id;
     }
 
     /**
@@ -74,8 +70,8 @@ define(['jquery','../data/navigation.data'],function ($,$data) {
      * 发表博客！
      */
     function publish_blog() {
-        var user_id = sessionStorage.getItem('user');
-        if(user_id){
+        var user = JSON.parse(sessionStorage.getItem('user'));
+        if(user){
             location.href = 'edit.html';
         }
         else{

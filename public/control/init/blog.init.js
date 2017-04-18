@@ -77,17 +77,17 @@ fn.prototype = {
     },
     /********************  分页点击事件   **********************/
     page_prev : function () {
-        require([_path + 'pager.module'],function (proxy) {
+        require([_path + 'blog.module'],function (proxy) {
             proxy.page_prev();
         });
     },
     page_next : function () {
-        require([_path + 'pager.module'],function (proxy) {
+        require([_path + 'blog.module'],function (proxy) {
             proxy.page_next();
         });
     },
     page_num : function (that) {
-        require([_path + 'pager.module'],function (proxy) {
+        require([_path + 'blog.module'],function (proxy) {
             proxy.page_num(that);
         });
     }
