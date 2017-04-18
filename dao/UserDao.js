@@ -56,6 +56,27 @@ function _findUserById(data,callback) {
         }
     });
 }
+/**
+ * 修改用户的简介
+ * @param data
+ * @param callback
+ * @private
+ */
+function _modifyIntroduction(data,callback) {
+    User.update(
+        {_id:data.id},
+        {$set:{introduction:data.introduction}},
+        {upset:true},
+        function (err,data) {
+            if(err) console.error(err);
+            else{
+                callback(data);
+            }
+        }
+    )
+}
+
 exports.login = _login;
 exports.regist = _regist;
 exports.findUserById = _findUserById;
+exports.modifyIntroduction = _modifyIntroduction;
