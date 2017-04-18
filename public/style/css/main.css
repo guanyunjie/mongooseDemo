@@ -3,6 +3,9 @@ a:hover,a:active,a:focus{text-decoration: none;}
 ul{list-style: none;}
 em,i{font-style: normal;}
 *{font-family: '微软雅黑'}
+
+.err{color:#FF4A4D !important;}
+
 .comment_wrap{position: relative;border-bottom: 1px dashed #ccc;margin-top: 16px;}
 .comment_wrap .th{float: left;border-radius: 50%;overflow: hidden;margin-right: 10px;}
 .comment_wrap .th a{display: block;}
@@ -47,8 +50,24 @@ em,i{font-style: normal;}
 /* 博客列表页面 */
 .page{display: block;text-align: right;}
 .page a{display: inline-block;height: 25px;vertical-align: top}
-.page .page-prev,.page .page-next{width: 25px;border-radius: 50%;background-color: #edeef2;background-position: left bottom;}
+.page .page-prev,.page .page-next{width: 25px;border-radius: 50%;}
 .page .page-prev{background-image: url(../img/pre.png);}
 .page .page-next{background-image: url(../img/next.png);}
 .page .page-on{color: #3765c2;background: #ced2de;}
 .page .page-num,.page .dot-prev,.page .dot-next{color: #333;line-height: 25px;width: 25px;border-radius: 50%;text-align: center;}
+
+/* 设置个人信息 */
+.setting-photo{text-align: center;padding: 20px 0;}
+.setting-photo a{display: inline-block;position: relative;border-radius: 50%;overflow: hidden;border: 1px solid #286ed2;}
+.setting-photo input{position: relative;opacity: 0;height: 72px;width: 72px;display: inline-block;z-index: 1;border-radius: 50%;}
+.setting-photo img{position: absolute;height: 72px;width: 72px;left: 0;border-radius: 50%;}
+
+.setting-length{position: absolute;top: 11px;right: 21px;color: #2c27ff;}
+
+/* 博客详情页面  */
+.detail{margin: 30px auto;padding: 30px 10px;background-color: #fff;}
+.detail .logo{line-height: 48px;text-align: center;font-size: 23px;background-color: #3765c2;color: #fff;}
+.detail .title{font-size: 18px;color: #3765c2;}
+.detail .user>a{display: inline-block;height: 32px;width: 32px;border-radius: 50%;overflow: hidden;}
+.detail .user img{height: 100%;}
+

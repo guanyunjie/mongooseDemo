@@ -42,14 +42,14 @@
         <div style="overflow: auto;">
             <div :for="blog in @blogs" class="col-sm-12 blog-body">
                 <div class="col-sm-2 text-right blog-photo">
-                    <a href="javascript:;"><img :attr="{src:blog.user.photo}" /></a>
+                    <a :attr="{href:'user.html?userid='+blog.user._id }"><img :attr="{src:blog.user.photo}" /></a>
                 </div>
                 <div class="col-sm-10 blog-user">
-                    <p><a href=""><span :html="blog.user.nickname"></span></a></p>
+                    <p><a :attr="{href:'user.html?userid='+blog.user._id }"><span :html="blog.user.nickname"></span></a></p>
                     <p class="help-block">发表于：{{blog.createtime}}</p>
                 </div>
                 <div class="col-sm-10 col-sm-offset-2 blog-title">
-                    <a style="display: block" href="javascript:;"><h4>{{blog.title}}</h4></a>
+                    <a style="display: block" :attr="{href:'detail.html?id='+blog._id}"><h4>{{blog.title}}</h4></a>
                 </div>
                 <div class="col-sm-10 col-sm-offset-2 blog-hot">
                     <span>阅读量：{{blog.read}}</span>

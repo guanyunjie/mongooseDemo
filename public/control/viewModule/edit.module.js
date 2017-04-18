@@ -17,11 +17,13 @@ define(['avalon','jquery','../data/edit.data'],function (avalon,$,$data) {
                     alert('blog内容长度不小于5');
                     return;
                 }
+                var user_id = JSON.parse(sessionStorage.getItem('user'))._id;
+
                 var data = {
-                    user    :   sessionStorage.getItem('user'),
+                    user    :   user_id,
                     title   :   vm_edit.title,
                     content :   vm_edit.content,
-                }
+                };
 
                 $data.blog_publish(data,function (result) {
                     if(result && result.result){

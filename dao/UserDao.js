@@ -49,10 +49,10 @@ function _regist(data,callback) {
  * @private
  */
 function _findUserById(data,callback) {
-    User.findById(data.id,function (err,data) {
+    User.findById(data.id,function (err,user) {
         if(err) console.error(err);
         else{
-            callback(data);
+            callback(user);
         }
     });
 }
@@ -63,20 +63,60 @@ function _findUserById(data,callback) {
  * @private
  */
 function _modifyIntroduction(data,callback) {
-    User.update(
-        {_id:data.id},
-        {$set:{introduction:data.introduction}},
-        {upset:true},
-        function (err,data) {
+    User.findById(data.id,function (err,user) {
+        user.introduction = data.introduction;
+        user.save(function (err) {
             if(err) console.error(err);
             else{
-                callback(data);
+                callback(user);
             }
+        });
+    });
+}
+/**
+ * 修改密码
+ * @param data
+ * @param callback
+ * @private
+ */
+function _modifyPassword(data,callback) {
+    User.findById(data.id,function (err,user) {
+        if(err) console.error(err);
+        else{
+            user.password = data.password;
+            user.save(function (err) {
+                if(err) console.error(err);
+                else{
+                    callback(user);
+                }
+            });
         }
-    )
+    });
+}
+/**
+ * 修改昵称
+ * @param data
+ * @param callback
+ * @private
+ */
+function _modifyNickname(data,callback) {
+    User.findById(data.id,function (err,user) {
+        if(err) console.error(err);
+        else{
+            user.nickname = data.nickname;
+            user.save(function (err) {
+                if(err) console.error(err);
+                else{
+                    callback(user);
+                }
+            });
+        }
+    });
 }
 
 exports.login = _login;
 exports.regist = _regist;
 exports.findUserById = _findUserById;
 exports.modifyIntroduction = _modifyIntroduction;
+exports.modifyNickname = _modifyNickname;
+exports.modifyPassword = _modifyPassword;

@@ -54,7 +54,7 @@
                 <div class="col-sm-3">简介：</div>
                 <div class="col-sm-9">
                     <span :html="@user.introduction"></span>
-                    <a id="editIcon" :on-click="@showIntro" href="javascript:;"><span style="margin-left: 10px;" class="glyphicon glyphicon-pencil"></span></a>
+                    <a id="editIcon" :visible="@sameUser" :on-click="@showIntro" href="javascript:;"><span style="margin-left: 10px;" class="glyphicon glyphicon-pencil"></span></a>
                     <div id="introduction" style="display: none;">
                         <textarea :duplex="@user.introduction" class="form-control"></textarea>
                         <button :on-click="@submitIntro" class="btn btn-sm btn-default">提交</button>

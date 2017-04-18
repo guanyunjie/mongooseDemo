@@ -33,7 +33,7 @@ define(['avalon','jquery','../data/common.data'],function (avalon,$,$data) {
     var $time = null;
     /**
      *
-     * @param message  {提示信息}
+     * @param message  {String}
      * @param state {1:'勾',2:'叉叉',3:'问号',4:'感叹号'}
      */
     function msg(message,state){
@@ -102,11 +102,32 @@ define(['avalon','jquery','../data/common.data'],function (avalon,$,$data) {
         return reverseArr;
     }
 
+    /**
+     * 获取当前登录用户信息
+     */
+    function session_user() {
+        return JSON.parse(sessionStorage.getItem('user'));
+    }
+
+    /**
+     * 获取url参数
+     * @param name
+     * @returns {*}
+     */
+    function urlParam(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return r[2]; return null;
+    }
+
+
     return {
         getCurrentTime:getCurrentTime,
         uuid:uuid,
         Format:Format,
         msg:msg,
-        reverse:reverse
+        reverse:reverse,
+        session_user:session_user,
+        urlParam:urlParam
     }
 });

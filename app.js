@@ -19,7 +19,7 @@ app.post('/mongoose/:service',function (req,res) {
     var service = req.params.service;
     var data = req.body;
     mongooseRouter.proxy(service,data,function (result) {
-        if(result.message == 'success'){
+        if(result.message === 'success'){
             res.status(200).send(result);
         }
         else{
