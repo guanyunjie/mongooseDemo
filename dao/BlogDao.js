@@ -85,14 +85,48 @@ function _findCommentsOfBlog(data,callback) {
 function _listBlog(data,callback) {
     var size = data.size || 8;
     var num = size * (data.num - 1);
-    Blog.find({})
-        .populate('user','nickname photo')
-        .skip(num).limit(size).exec(function (err,data) {
-        err ? console.error(err) : callback(data);
-    });
-}
+    var result = {};
+    result.num = data.num;
 
+    var promise = Blog.find({}).select('_id').exec();
+    promise.then(
+        function (data) {
+           result.total = Math.ceil(data.length / size);
+        },
+        function (err) {
+        });
+    promise = Blog.find({})
+        .populate('user','nickname photo')
+        .skip(num).limit(size).exec();
+    promise.then(
+        function (data) {
+            result.result = data;
+            callback(result);
+        },
+        function (err) {
+
+        });
+}
+/**
+ * 根据用户id查询其发表的所有博客
+ * @param data
+ * @param callback
+ * @private
+ */
+function _findBlogByUserId(data,callback) {
+    var user_id = data.userid;
+    var promise = Blog.find({user:user_id}).exec();
+    promise.then(
+        function (data) {
+            callback(data);
+        },
+        function (err) {
+
+        }
+    );
+}
 exports.publish = _publish;
 exports.findById = _findById;
 exports.findCommentsOfBlog = _findCommentsOfBlog;
 exports.listBlog = _listBlog;
+exports.findBlogByUserId = _findBlogByUserId;
