@@ -35,40 +35,42 @@
 </nav>
 <div id="main" :controller="blogControl" class="container-fluid main">
     <div class="container main-body blog">
-        <div class="col-sm-2 text-right">
+        <div class="col-sm-2 text-right" style="float: none;">
             <h4>博客</h4>
         </div>
         <!-- blog列表 -->
-        <div :for="blog in @blogs" class="col-sm-12 blog-body">
-            <div class="col-sm-2 text-right blog-photo">
-                <a href="javascript:;"><img :attr="{src:blog.user.photo}" /></a>
-            </div>
-            <div class="col-sm-10 blog-user">
-                <p><a href=""><span :html="blog.user.nickname"></span></a></p>
-                <p class="help-block">发表于：{{blog.createtime}}</p>
-            </div>
-            <div class="col-sm-10 col-sm-offset-2 blog-title">
-                <a style="display: block" href="javascript:;"><h4>{{blog.title}}</h4></a>
-            </div>
-            <div class="col-sm-10 col-sm-offset-2 blog-hot">
-                <span>阅读量：{{blog.read}}</span>
-                <span>评论：{{blog.comment.length}}</span>
-                <span>点赞：{{blog.praise.length}}</span>
+        <div style="overflow: auto;">
+            <div :for="blog in @blogs" class="col-sm-12 blog-body">
+                <div class="col-sm-2 text-right blog-photo">
+                    <a href="javascript:;"><img :attr="{src:blog.user.photo}" /></a>
+                </div>
+                <div class="col-sm-10 blog-user">
+                    <p><a href=""><span :html="blog.user.nickname"></span></a></p>
+                    <p class="help-block">发表于：{{blog.createtime}}</p>
+                </div>
+                <div class="col-sm-10 col-sm-offset-2 blog-title">
+                    <a style="display: block" href="javascript:;"><h4>{{blog.title}}</h4></a>
+                </div>
+                <div class="col-sm-10 col-sm-offset-2 blog-hot">
+                    <span>阅读量：{{blog.read}}</span>
+                    <span>评论：{{blog.comment.length}}</span>
+                    <span>点赞：{{blog.praise.length}}</span>
+                </div>
             </div>
         </div>
         <!-- 分页 -->
         <p class="page">
-            <a class="page-prev" onclick="$fn.page_prev();" href="javascript:;"></a>
-            <a class="page-num" onclick="$fn.page_num(this);" href="javascript:;">1</a>
-            <a class="page-num" onclick="$fn.page_num(this);" href="javascript:;">2</a>
+            <a class="page-prev" href="javascript:;"></a>
+            <a class="page-num"  href="javascript:;">1</a>
+            <a class="page-num"  href="javascript:;">2</a>
             <a class="dot-prev" href="javascript:;">...</a>
-            <a class="page-num" onclick="$fn.page_num(this);" href="javascript:;">4</a>
-            <a class="page-num page-on" onclick="$fn.page_num(this);" href="javascript:;">5</a>
-            <a class="page-num" onclick="$fn.page_num(this);" href="javascript:;">6</a>
+            <a class="page-num"  href="javascript:;">4</a>
+            <a class="page-num page-on"  href="javascript:;">5</a>
+            <a class="page-num"  href="javascript:;">6</a>
             <a class="dot-next" href="javascript:;">...</a>
-            <a class="page-num" onclick="$fn.page_num(this);" href="javascript:;">11</a>
-            <a class="page-num" onclick="$fn.page_num(this);" href="javascript:;">12</a>
-            <a class="page-next" onclick="$fn.page_next();" href="javascript:;"></a>
+            <a class="page-num"  href="javascript:;">11</a>
+            <a class="page-num"  href="javascript:;">12</a>
+            <a class="page-next" href="javascript:;"></a>
         </p>
     </div>
 </div>

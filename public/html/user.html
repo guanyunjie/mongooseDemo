@@ -10,57 +10,78 @@
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-fixed-top navbar-inverse">
-        <div class="container-fluid">
-            <div class="collapse navbar-collapse navbar-left">
-                <ul class="nav navbar-nav _user">
-                    <li>
-                        <span class="glyphicon glyphicon-user"></span>
-                        <span>当前用户：</span><span :visible="@user.nickname" :html="@user.nickname"></span>
-                    </li>
-                </ul>
-                <div style="display: none;position: absolute;color: #4c4c4c;top: 53px;left: 100px;background-color: #fff">
-                    <ul class="nav navbar list-inline">
-                        <li><a href="user.html">个人主页</a></li>
-                        <li><a href="setting.html">账号设置</a></li>
-                        <li><a href="javascript:;">退出登录</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="collapse navbar-collapse navbar-right">
-                <ul class="nav navbar-nav">
-                    <li><a :on-click="@alert_login" href="javascript:;">登录</a></li>
-                    <li><a :on-click="@alert_regist" href="javascript:;">注册</a></li>
-                </ul>
-            </div>
+<nav id="navigation" class="navbar navbar-fixed-top navbar-inverse">
+    <div class="container">
+        <div class="collapse navbar-collapse navbar-left">
+            <ul class="nav navbar-nav _user">
+                <li>
+                    <a href="blog.html"><span>博客</span></a>
+                </li>
+                <li><a href="javascript:;"><span>xxxx</span></a></li>
+            </ul>
         </div>
-    </nav>
-
-    <div class="container-fluid user-main">
-        <div class="container info">
-            <div class="col-sm-4 photo">
-                <a href="user.html"><img src="../style/img/001.jpg" alt=""></a>
-                <div style="display: inline-block;">
-                    <a style="display: block;font-size: 16px;padding-left: 15px;" href="user.html">youxiang:</a>
-                    <h5 style="font-size: 18px;padding-left: 15px;text-align: center;">
-                        <span>被赞</span>
-                        <strong style="">4</strong>
-                    </h5>
-                </div>
-            </div>
-            <div class="col-sm-8">
-                <p>简介：<span>该用户很懒，没有留下任何简介~</span><a href="#"><span style="margin-left: 10px;" class="glyphicon glyphicon-pencil"></span></a></p>
-            </div>
-        </div>
-        <div class="container active" style="padding: 20px;background-color: #fff;margin-top: 30px;">
-            <div class="col-sm-3" style="border-right: 1px solid #ccc;">
-                <ul class="nav navbar list-inline">
-                    <li><a href="javascript:;">博客</a></li>
-                    <li><a href="javascript:;">评论</a></li>
+        <button onclick="$fn.publish_blog();" style="position: relative;top: 10px;" type="button" class="btn btn-success pull-left">发表博客</button>
+        <div class="collapse navbar-collapse navbar-right">
+            <ul class="nav navbar-nav">
+                <li><a onclick="$fn.alert_login();" href="javascript:;">登录/注册</a></li>
+                <li id="user_li" style="display: none;"><a onclick="$fn.show_board();" href="javascript:;"><span></span></a></li>
+            </ul>
+            <div id="person_board" class="person-board">
+                <ul class="nav list-inline">
+                    <li><a onclick="$fn.user_homepage();" href="javascript:;">个人主页</a></li>
+                    <li><a onclick="$fn.setting();" href="javascript:;">账号设置</a></li>
+                    <li><a onclick="$fn.logout();" href="javascript:;">退出登录</a></li>
                 </ul>
             </div>
-            <div class="col-sm-9"></div>
         </div>
     </div>
+</nav>
+
+<div id="main" :controller="userControl" class="container-fluid main user-main">
+    <div class="container info">
+        <div class="col-sm-5 photo">
+            <a href="user.html"><img style="height: 64px;width: 64px;" :attr="{src:@user.photo}" alt=""></a>
+            <div style="display: inline-block;">
+                <a style="display: block;font-size: 14px;padding-left: 15px;" href="user.html"><span :html="@user.nickname"></span></a>
+                <h5 style="font-size: 18px;padding-left: 15px;text-align: center;">
+                    <span>被赞</span>
+                    <strong style="">4</strong>
+                </h5>
+            </div>
+        </div>
+        <div class="col-sm-7">
+            <p>
+                <div class="col-sm-3">简介：</div>
+                <div class="col-sm-9">
+                    <span :html="@user.introduction"></span>
+                    <a id="editIcon" :on-click="@showIntro" href="javascript:;"><span style="margin-left: 10px;" class="glyphicon glyphicon-pencil"></span></a>
+                    <div id="introduction" style="display: none;">
+                        <textarea :duplex="@user.introduction" class="form-control"></textarea>
+                        <button :on-click="@submitIntro" class="btn btn-sm btn-default">提交</button>
+                    </div>
+                </div>
+            </p>
+        </div>
+    </div>
+    <div class="container active" style="padding: 20px;background-color: #fff;margin-top: 30px;">
+        <div class="col-sm-9">
+            <h4>博客</h4>
+            <div :for="blog in @blogs" class="col-sm-12 blog-body" style="border-bottom: 1px dashed #ccc;padding-bottom: 15px;">
+                <div class="col-sm-10 col-sm-offset-1 blog-title">
+                    <a style="display: block" href="javascript:;"><h4>{{blog.title}}</h4></a>
+                </div>
+                <div class="col-sm-10 col-sm-offset-1 blog-content">
+                    <span>{{blog.content}}</span>
+                </div>
+                <div class="col-sm-10 col-sm-offset-1 blog-hot">
+                    <span>阅读量：{{blog.read}}</span>
+                    <span>评论：{{blog.comment.length}}</span>
+                    <span>点赞：{{blog.praise.length}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
+<script src="../lib/require.js" data-main="../control/init/user.init" ></script>
