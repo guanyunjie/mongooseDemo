@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>xxx的博客</title>
+    <link rel="stylesheet" href="../style/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../style/css/main.css" />
+</head>
+<body>
+<nav id="navigation" class="navbar navbar-fixed-top navbar-inverse">
+    <div class="container">
+        <div class="collapse navbar-collapse navbar-left">
+            <ul class="nav navbar-nav _user">
+                <li>
+                    <a href="blog.html"><span>博客</span></a>
+                </li>
+                <li><a href="javascript:;"><span>xxxx</span></a></li>
+            </ul>
+        </div>
+        <button onclick="$fn.publish_blog();" style="position: relative;top: 10px;" type="button" class="btn btn-success pull-left">发表博客</button>
+        <div class="collapse navbar-collapse navbar-right">
+            <ul class="nav navbar-nav">
+                <li><a onclick="$fn.alert_login();" href="javascript:;">登录/注册</a></li>
+                <li id="user_li" style="display: none;"><a onclick="$fn.show_board();" href="javascript:;"><span></span></a></li>
+            </ul>
+            <div id="person_board" class="person-board">
+                <ul class="nav list-inline">
+                    <li><a onclick="$fn.user_homepage();" href="javascript:;">个人主页</a></li>
+                    <li><a onclick="$fn.setting();" href="javascript:;">账号设置</a></li>
+                    <li><a onclick="$fn.logout();" href="javascript:;">退出登录</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div id="main" class="container-fluid main">
+    <div class="container detail">
+        <div class="col-sm-1">
+            <div class="logo">博客</div>
+        </div>
+        <div class="col-sm-11">
+            <span class="title">均衡存乎万物之间</span>
+        </div>
+        <div class="col-sm-11 col-sm-offset-1 user">
+            <a href="javascript:;"><img src="../style/img/003.jpg"></a>
+            <span >爱哭的毛毛虫</span>
+            <span>2017-3-15 14:57</span>
+            <span>阅读：25</span>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
+<script src="../lib/require.js" data-main="../control/init/detail.init" ></script>
