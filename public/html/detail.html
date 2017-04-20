@@ -34,19 +34,82 @@
     </div>
 </nav>
 
-<div id="main" class="container-fluid main">
+<div id="main" :controller="detailControl" class="container-fluid main">
     <div class="container detail">
         <div class="col-sm-1">
             <div class="logo">博客</div>
         </div>
         <div class="col-sm-11">
-            <span class="title">均衡存乎万物之间</span>
+            <span class="title">{{@blog.title}}</span>
         </div>
         <div class="col-sm-11 col-sm-offset-1 user">
-            <a href="javascript:;"><img src="../style/img/003.jpg"></a>
-            <span >爱哭的毛毛虫</span>
-            <span>2017-3-15 14:57</span>
-            <span>阅读：25</span>
+            <a :attr="{href:'user.html?userid='+@blog.user._id}"><img :attr="{src:@blog.user.photo}"></a>
+            <a href="javascript:;"><span style="color: #333;">{{@blog.user.nickname}}</span></a>
+            <span>{{@blog.createtime | time}}</span>
+            <span>阅读：{{@blog.visitor}}</span>
+        </div>
+        <div class="col-sm-11 col-sm-offset-1 content">
+            <p :text="@blog.content"></p>
+        </div>
+
+        <div class="col-sm-12">
+            <div class="comment-logo">
+                <div class="">评论({{@comments.length}})</div>
+               <!-- <div class="comment-login-no">
+                    <span class="glyphicon glyphicon-info-sign"></span>
+                    <a href="javascript:;"><span>登录</span></a>
+                    后才能发表评论噢~
+                </div>-->
+                <div :visible="@blog.user._id !== @user._id" class="comment_content" style="position: relative">
+                    <textarea maxlength="200" :duplex="@comment" class="form-control" rows="4"></textarea>
+                    <span id="length_span" class="length err">({{@comment_length}}/200)</span>
+                    <button :on-click="@submit_comment" :attr="{disabled:@comment_length < 5}" type="button" class="btn btn-primary">确&nbsp;&nbsp;认</button>
+                </div>
+            </div>
+            <div :for="comment in @comments" class="comment_wrap">
+                <div class="th">
+                    <a :attr="{href:'user.html?userid='+comment.user._id}"><img :attr="{src:comment.user.photo}" alt=""></a>
+                </div>
+                <div class="title">
+                    <a :attr="{href:'user.html?userid='+comment.user._id}">{{comment.user.nickname}}</a>
+                </div>
+                <div class="content">{{comment.content}}</div>
+                <div class="action">
+                    <span>{{comment.createtime | time}}</span>
+                    <a class="assist" href="javascript:;"><span>(0)</span></a>
+                    <a :on-click="show_reply_area($event)" class="message" style="padding-left: 20px;" href="javascript:;"><span>回复</span></a>
+                </div>
+                <div :attr="{comment:comment._id,beuser:comment.user._id}" class="reply-area" style="display: none;">
+                    <textarea maxlength="140" class="form-control"></textarea>
+                    <button :on-click="@submit_reply($event)" type="button" class="btn btn-primary">确&nbsp;&nbsp;定</button>
+                </div>
+                <div :for="reply in comment.reply" class="reply">
+                    <div class="th">
+                        <a href="javascript:;"><img :attr="{src:reply.user.photo}" alt=""></a>
+                    </div>
+                    <div class="title">
+                        <a href="javascript:;">{{reply.user}}</a>回复
+                        <a href="javascript:;">{{reply.beuser}}
+                    </div>
+                    <div class="content">
+                        {{reply.content}}
+                    </div>
+                    <div class="action">
+                        <span>{{reply.createtime | time}}</span>
+                        <a class="assist" href="javascript:;"><span>(0)</span></a>
+                        <a :on-click="show_reply_area($event)" class="message" style="padding-left: 20px;" href="javascript:;"><span>回复</span></a>
+                    </div>
+                    <div class="reply-area" >
+                        <textarea maxlength="140" class="form-control"></textarea>
+                        <button :on-click="@submit_reply($event)" type="button" class="btn btn-primary">确&nbsp;&nbsp;定</button>
+                    </div>
+                    <div class="reply-area" style="display: none;">
+                        <textarea class="form-control"></textarea>
+                        <button type="button" class="btn btn-primary">确&nbsp;&nbsp;定</button>
+                        <button type="button" class="btn btn-danger">取&nbsp;&nbsp;消</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

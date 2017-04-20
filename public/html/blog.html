@@ -46,7 +46,7 @@
                 </div>
                 <div class="col-sm-10 blog-user">
                     <p><a :attr="{href:'user.html?userid='+blog.user._id }"><span :html="blog.user.nickname"></span></a></p>
-                    <p class="help-block">发表于：{{blog.createtime}}</p>
+                    <p class="help-block">发表于：{{blog.createtime | time}}</p>
                 </div>
                 <div class="col-sm-10 col-sm-offset-2 blog-title">
                     <a style="display: block" :attr="{href:'detail.html?id='+blog._id}"><h4>{{blog.title}}</h4></a>

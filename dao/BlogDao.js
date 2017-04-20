@@ -39,8 +39,9 @@ function _publish(data,callback) {
  * @private
  */
 function _findById(data,callback) {
-    Blog.findById(data.id,function (err,data) {
-        callback(data);
+    Blog.findById(data.id).populate('user').exec(function (err,data) {
+        if(err) console.error(err);
+        else callback(data);
     });
 }
 
@@ -50,7 +51,7 @@ function _findById(data,callback) {
  * @param callback
  * @private
  */
-function _findCommentsOfBlog(data,callback) {
+function _findCommentAndReply(data,callback) {
     /**
      *    select c.*,u.nickname cnickname,r.id rid,r.content rcontent,u1.nickname rnickname,u2.nickname bernickname
      *    from comment c
@@ -59,22 +60,19 @@ function _findCommentsOfBlog(data,callback) {
      *    LEFT JOIN user u1 on r.userid = u1.id
      *    LEFT JOIN user u2 on r.beuserid = u2.id
      */
-    var promise = Comment.find({blogid:data.blogid})
-        .populate('userid','nickname')
+    Comment.find({blog:data.blogid})
+        .populate('user','nickname photo')
         .populate({
-            path:'replies'
+            path:'reply',
         })
-        .exec();
-    promise.then(
-        function (data) {
-            console.log(data);
-            callback(resultUtil.returnResult(null,data));
-        },
-        function (err) {
-
-        }
-    );
-
+        .populate('reply.user','nickname photo')
+        .sort('-createtime')
+        .exec(function (err,data) {
+            if(err) console.error(err);
+            else{
+                callback(data);
+            }
+        });
 }
 /**
  * 分页查询
@@ -127,6 +125,6 @@ function _findBlogByUserId(data,callback) {
 }
 exports.publish = _publish;
 exports.findById = _findById;
-exports.findCommentsOfBlog = _findCommentsOfBlog;
+exports.findCommentAndReply = _findCommentAndReply;
 exports.listBlog = _listBlog;
 exports.findBlogByUserId = _findBlogByUserId;

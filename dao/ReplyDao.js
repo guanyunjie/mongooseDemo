@@ -1,7 +1,6 @@
 /**
  * Created by Guanyunjie on 2017/4/11.
  */
-var ru = require('../models/pack');
 var Reply = require('../models/Reply');
 var Comment = require('../models/Comment');
 /**
@@ -11,15 +10,23 @@ var Comment = require('../models/Comment');
  * @private
  */
 function _insert(data,callback) {
-   Reply.create(data,function (err,data) {
-       var _replyid = data._id;
-       Comment.findById(data.commentid,function (err,data) {
-           data.replies.push(_replyid);
-           data.save(function (err,data) {
-               callback(ru.returnResult(err,data));
-           });
-       });
-   });
+    Reply.create(data,function (err,reply) {
+        if(err) console.log(err);
+        else{
+            Comment.findById(reply.comment,function (err,comment) {
+                if(err) console.log(err);
+                else{
+                    comment.reply.push(reply._id);
+                    comment.save(function (err) {
+                        if(err) console.log(err);
+                        else{
+                            callback(reply);
+                        }
+                    });
+                }
+            });
+        }
+    });
 }
 
 exports.insert = _insert;

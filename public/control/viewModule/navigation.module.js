@@ -1,7 +1,14 @@
 /**
  * Created by Guanyunjie on 2017/4/14.
  */
-define(['jquery','../data/navigation.data'],function ($,$data) {
+define(['avalon','jquery','../data/navigation.data','./common.module'],function (avalon,$,$data,$com) {
+    /**
+     * 时间格式过滤器
+     * @param str
+     */
+    avalon.filters.time = function (str) {
+        return $com.Format(new Date(str));
+    };
     /**
      * 弹出登录注册面板
      */
