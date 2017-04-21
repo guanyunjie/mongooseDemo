@@ -10,23 +10,31 @@ var Comment = require('../models/Comment');
  * @private
  */
 function _insert(data,callback) {
-    Reply.create(data,function (err,reply) {
-        if(err) console.log(err);
-        else{
-            Comment.findById(reply.comment,function (err,comment) {
-                if(err) console.log(err);
-                else{
-                    comment.reply.push(reply._id);
-                    comment.save(function (err) {
-                        if(err) console.log(err);
-                        else{
-                            callback(reply);
-                        }
-                    });
-                }
-            });
-        }
-    });
+    Reply.create(data)
+        .then(
+            function(reply){
+                Comment.findById(reply.comment).then(
+                    function (comment) {
+                        comment.reply.push(reply._id);
+                        comment.save().then(
+                            function (data) {
+                                callback(reply);
+                            },
+                            function (err) {
+                                
+                            }
+                        );
+                    },
+                    function (err) {
+
+                    }
+                );
+            },
+            function (err) {
+
+            }
+        );
+
 }
 
 exports.insert = _insert;

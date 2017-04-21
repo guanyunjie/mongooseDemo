@@ -8,6 +8,17 @@ var Blog = require('../models/Blog');
 var User = require('../models/User');
 
 /**
+ * 暴露接口
+ * @type {_publish}
+ */
+exports.publish = _publish;
+exports.findById = _findById;
+exports.findCommentAndReply = _findCommentAndReply;
+exports.listBlog = _listBlog;
+exports.findBlogByUserId = _findBlogByUserId;
+exports.beVisited = _beVisited;
+
+/**
  * 新增blog
  * @param data
  * @param callback
@@ -39,10 +50,22 @@ function _publish(data,callback) {
  * @private
  */
 function _findById(data,callback) {
-    Blog.findById(data.id).populate('user').exec(function (err,data) {
-        if(err) console.error(err);
-        else callback(data);
-    });
+    Blog.findById(data.id).populate('user').exec().then(
+        function (blog) {
+            blog.visitor += 1;
+            blog.save().then(
+                function () {
+                    callback(blog);
+                },
+                function (err) {
+
+                }
+            );
+        },
+        function (err) {
+
+        }
+    );
 }
 
 /**
@@ -123,8 +146,27 @@ function _findBlogByUserId(data,callback) {
         }
     );
 }
-exports.publish = _publish;
-exports.findById = _findById;
-exports.findCommentAndReply = _findCommentAndReply;
-exports.listBlog = _listBlog;
-exports.findBlogByUserId = _findBlogByUserId;
+/**
+ * 博客被访问的时候阅读量加一
+ * @param data
+ * @param callback
+ * @private
+ */
+function _beVisited(data,callback) {
+    Blog.findById(data.id).then(
+        function (blog) {
+            blog.visitor += 1;
+            blog.save().then(
+                function (blog) {
+                    callback(blog);
+                },
+                function (err) {
+
+                }
+            );
+        },
+        function (err) {
+
+        }
+    );
+}

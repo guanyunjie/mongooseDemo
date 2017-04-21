@@ -10,7 +10,8 @@ var blogSchema = new Schema({
     title   :   {type:String},
     content :   {type:String},
     comment :   [{type:Schema.Types.ObjectId,ref:'Comment'}],
-    praise  :   [{type:Schema.Types.ObjectId,ref:'Praise'}]
+    praise  :   [{type:Schema.Types.ObjectId,ref:'Praise'}],
+    visitor :   {type:Number,default:0}
 },{
     versionKey:false
 });

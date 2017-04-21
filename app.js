@@ -18,6 +18,7 @@ app.use(bodyParser.json());
 app.post('/mongoose/:service',function (req,res) {
     var service = req.params.service;
     var data = req.body;
+    console.log(data);
     mongooseRouter.proxy(service,data,function (result) {
         if(result.message === 'success'){
             res.status(200).send(result);
@@ -30,12 +31,8 @@ app.post('/mongoose/:service',function (req,res) {
 /**
  * 向mysql拉取数据。
  */
-app.post('/mysql/:service',function (req,res) {
-    var data = {
-        service:req.param('service'),
-        data:req.body
-    };
-    data = JSON.stringify(data);
+app.post('/mysql',function (req,res) {
+    var data = req.body;
     var config = require('./mysql_config').proxy;
     if(!(config.host || config.port || config.path)){
         console.warn('mysql-config  error');

@@ -47,7 +47,9 @@ define(['avalon','jquery','../data/detail.data','./common.module'],function (ava
                     };
                     $data.reply_insert(data,function (result) {
                         if(result.result){
-                            console.log(result);
+                            $reply_area.find('textarea').val('');
+                            $reply_area.hide();
+                            refreshComment();
                         }
                     });
                 }

@@ -89,7 +89,7 @@
                     </div>
                     <div class="title">
                         <a href="javascript:;">{{reply.user}}</a>回复
-                        <a href="javascript:;">{{reply.beuser}}
+                        <a href="javascript:;">{{reply.beuser}}</a>
                     </div>
                     <div class="content">
                         {{reply.content}}
@@ -99,14 +99,9 @@
                         <a class="assist" href="javascript:;"><span>(0)</span></a>
                         <a :on-click="show_reply_area($event)" class="message" style="padding-left: 20px;" href="javascript:;"><span>回复</span></a>
                     </div>
-                    <div class="reply-area" >
+                    <div :attr="{comment:comment._id,beuser:reply.user}" class="reply-area" style="display: none;">
                         <textarea maxlength="140" class="form-control"></textarea>
                         <button :on-click="@submit_reply($event)" type="button" class="btn btn-primary">确&nbsp;&nbsp;定</button>
-                    </div>
-                    <div class="reply-area" style="display: none;">
-                        <textarea class="form-control"></textarea>
-                        <button type="button" class="btn btn-primary">确&nbsp;&nbsp;定</button>
-                        <button type="button" class="btn btn-danger">取&nbsp;&nbsp;消</button>
                     </div>
                 </div>
             </div>

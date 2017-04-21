@@ -20,7 +20,7 @@ define(['avalon','jquery','../data/navigation.data','./common.module'],function 
      * 根据登录状态
      */
     function loginregister() {
-        var href = location.href;
+        var href = location.pathname;
         console.log(href);
         var user = JSON.parse(sessionStorage.getItem('user'));
         if(user){
@@ -30,7 +30,7 @@ define(['avalon','jquery','../data/navigation.data','./common.module'],function 
             $("#user_li").find('span').html(user.nickname);
         }
         else{
-            if(href !== 'http://127.0.0.1:3000/html/index.html'){
+            if(href !== '/html/index.html'){
                 location.href = 'index.html';
             }
         }
